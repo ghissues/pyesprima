@@ -871,7 +871,7 @@ def scanPunctuator():
                         index += 2
                         return jsdict({
 "type": Token.Punctuator,
-"value": chr(code) + unichr(code2),
+"value": chr(code) + chr(code2),
 "lineNumber": lineNumber,
 "lineStart": lineStart,
 "range": [start, index],
