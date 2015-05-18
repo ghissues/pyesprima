@@ -565,16 +565,16 @@ def isOctalDigit(ch=None):
     return "01234567".find(ch) >= 0
 
 def isWhiteSpace(ch=None):
-    return (((((ch == 32) or (ch == 9)) or (ch == 11)) or (ch == 12)) or (ch == 160)) or ((ch >= 5760) and (u"\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\ufeff".find(unichr(ch)) > 0))
+    return (((((ch == 32) or (ch == 9)) or (ch == 11)) or (ch == 12)) or (ch == 160)) or ((ch >= 5760) and (u"\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\ufeff".find(chr(ch)) > 0))
 
 def isLineTerminator(ch=None):
     return (((ch == 10) or (ch == 13)) or (ch == 8232)) or (ch == 8233)
 
 def isIdentifierStart(ch=None):
-    return (((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierStart.test(unichr(ch)))
+    return (((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierStart.test(chr(ch)))
 
 def isIdentifierPart(ch=None):
-    return ((((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or ((ch >= 48) and (ch <= 57))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierPart.test(unichr(ch)))
+    return ((((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or ((ch >= 48) and (ch <= 57))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierPart.test(chr(ch)))
 
 def isFutureReservedWord(id=None):
     while 1:
@@ -761,7 +761,7 @@ def scanHexEscape(prefix=None):
         else:
             return ""
         i += 1
-    return unichr(code)
+    return chr(code)
 
 def getEscapedIdentifier():
     global index
@@ -769,7 +769,7 @@ def getEscapedIdentifier():
     id = None
     index += 1
     ch = (ord(source[index - 1]) if index - 1 < len(source) else None)
-    id = unichr(ch)
+    id = chr(ch)
     if ch == 92:
         if (ord(source[index]) if index < len(source) else None) != 117:
             throwError(jsdict({
@@ -785,7 +785,7 @@ def getEscapedIdentifier():
         if not isIdentifierPart(ch):
             break
         index += 1
-        id += unichr(ch)
+        id += chr(ch)
         if ch == 92:
             id = id[0:(0 + (len(id) - 1))]
             if (ord(source[index]) if index < len(source) else None) != 117:
@@ -859,7 +859,7 @@ def scanPunctuator():
                     extra.openCurlyToken = len(extra.tokens)
             return jsdict({
 "type": Token.Punctuator,
-"value": unichr(code),
+"value": chr(code),
 "lineNumber": lineNumber,
 "lineStart": lineStart,
 "range": [start, index],
@@ -872,7 +872,7 @@ def scanPunctuator():
                         index += 2
                         return jsdict({
 "type": Token.Punctuator,
-"value": unichr(code) + unichr(code2),
+"value": chr(code) + unichr(code2),
 "lineNumber": lineNumber,
 "lineStart": lineStart,
 "range": [start, index],
@@ -1125,7 +1125,7 @@ def scanStringLiteral():
                                 if (("0123".find(ch) >= 0) and (index < length)) and isOctalDigit(source[index]):
                                     index += 1
                                     code = (code * 8) + "01234567".find(source[index - 1])
-                            str__py__ += unichr(code)
+                            str__py__ += chr(code)
                         else:
                             str__py__ += str(ch)
                         break
