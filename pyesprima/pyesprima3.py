@@ -1573,7 +1573,7 @@ def parseObjectInitialiser():
     kind = None
     map = jsdict({
 })
-    toString = unicode
+    toString = str
     expect("{")
     __temp__48 = match("}")
     while not __temp__48:
@@ -2839,7 +2839,7 @@ def toJSString(s):
     elif s is None:
         return 'null'
     else:
-        return unicode(s)
+        return str(s)
 
 def parse(code, **options):
     global delegate, source, index, lineNumber, lineStart, length, lookahead, state, extra
@@ -2899,4 +2899,3 @@ def parse(code, **options):
         extra = jsdict({
 })
     return program
-
