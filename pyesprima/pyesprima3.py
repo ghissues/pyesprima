@@ -2915,20 +2915,7 @@ def validJSON(jsin):
       val=keyL[key]
       jsout[key]=validJSON(val)
   elif str(type(jsin)) == "<class '_sre.SRE_Pattern'>":
-    #print(jsin)
-    #print(dir(jsin))
-    #for attr in dir(jsin):
-    #  if attr[0] == "_": continue
-    #  else:
-    #    print(attr,type(getattr(jsin,attr)),getattr(jsin,attr))
-
     jsout=getattr(jsin,"pattern")
-    print(jsout,type(jsout))
-
-    #fail #for nisj in jsin:
-    #     #  print("?__",nisj)
-    #fail #print(getattr(self,str(jsin)))
-    #fail #print(vars(jsin))
   elif type(jsin) == list:
     jsout=[]
     for ind in jsin:
@@ -2944,8 +2931,6 @@ def validJSON(jsin):
   elif str(type(jsin)) == "<class 'NoneType'>":
     jsout=jsin
   else:
-    print(type(jsin))
-    exit()
     jsout=jsin
   return jsout
 
