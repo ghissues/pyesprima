@@ -2899,3 +2899,58 @@ def parse(code, **options):
         extra = jsdict({
 })
     return program
+
+
+def validJSON(jsin):
+  if str(type(jsin)) == "<class '__main__.jsdict'>":
+    jsout={}
+    keyL=vars(jsin)
+    for key in keyL:
+      val=keyL[key]
+      jsout[key]=validJSON(val)
+  elif str(type(jsin)) == "<class '__main__.RegExp'>":
+    jsout={}
+    keyL=vars(jsin)
+    for key in keyL:
+      val=keyL[key]
+      jsout[key]=validJSON(val)
+  elif str(type(jsin)) == "<class '_sre.SRE_Pattern'>":
+    #print(jsin)
+    #print(dir(jsin))
+    #for attr in dir(jsin):
+    #  if attr[0] == "_": continue
+    #  else:
+    #    print(attr,type(getattr(jsin,attr)),getattr(jsin,attr))
+
+    jsout=getattr(jsin,"pattern")
+    print(jsout,type(jsout))
+
+    #fail #for nisj in jsin:
+    #     #  print("?__",nisj)
+    #fail #print(getattr(self,str(jsin)))
+    #fail #print(vars(jsin))
+  elif type(jsin) == list:
+    jsout=[]
+    for ind in jsin:
+      jsout.append(validJSON(ind))
+  elif type(jsin) == str:
+    jsout=jsin
+  elif type(jsin) == int:
+    jsout=jsin
+  elif type(jsin) == float:
+    jsout=jsin
+  elif type(jsin) == bool:
+    jsout=jsin
+  elif str(type(jsin)) == "<class 'NoneType'>":
+    jsout=jsin
+  else:
+    print(type(jsin))
+    exit()
+    jsout=jsin
+  return jsout
+
+if __name__ == "__main__":
+  import sys
+  if len(sys.argv[1]) > 1:
+    parsed=validJSON(parse(open(sys.argv[1]).read()))
+    print(json.dumps(parsed,sort_keys=True,indent=2))
