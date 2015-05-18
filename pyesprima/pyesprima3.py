@@ -31,7 +31,6 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # -*- coding: latin-1 -*-
-from __future__ import print_function
 import re, json
 def typeof(t):
     if t is None: return 'undefined'
