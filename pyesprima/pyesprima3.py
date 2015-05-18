@@ -621,7 +621,7 @@ def addComment(type=None, value=None, start=None, end=None, loc=None):
     comment = None
     assert__py__(('undefined' if not 'start' in locals() else typeof(start)) == "number", "Comment must have valid position")
     if state.lastCommentStart >= start:
-        return 
+        return
     state.lastCommentStart = start
     comment = jsdict({
 "type": type,
@@ -661,7 +661,7 @@ def skipSingleLineComment():
                 index += 1
             lineNumber += 1
             lineStart = index
-            return 
+            return
     if extra.comments not in [None, False]:
         comment = source[(start + 2):index]
         loc.end = jsdict({
@@ -706,7 +706,7 @@ def skipMultiLineComment():
 "column": index - lineStart,
 })
                     addComment("Block", comment, start, index, loc)
-                return 
+                return
             index += 1
         else:
             index += 1
@@ -1398,7 +1398,7 @@ def throwError(token, messageFormat, *args):
         index = int(index.group(1))
         assert__py__(index < len(args), "Message reference must be in range")
         return str(args[index])
-    
+
     error = None
     msg = re.sub(r'%(\d)', __temp__43, messageFormat)
     if ('undefined' if not ('lineNumber' in token) else typeof(token.lineNumber)) == "number":
@@ -1422,7 +1422,7 @@ def throwErrorTolerant(*args):
         if extra.errors != False and extra.errors != None:
             extra.errors.append(e)
         else:
-            raise 
+            raise
 
 def throwUnexpected(token=None):
     if token.type == Token.EOF:
@@ -1438,7 +1438,7 @@ def throwUnexpected(token=None):
             throwError(token, Messages.UnexpectedReserved)
         elif strict and isStrictModeReservedWord(token.value):
             throwErrorTolerant(token, Messages.StrictReservedWord)
-            return 
+            return
         throwError(token, Messages.UnexpectedToken, token.value)
     throwError(token, Messages.UnexpectedToken, token.value)
 
@@ -1469,14 +1469,14 @@ def consumeSemicolon():
     line = None
     if (ord(source[index]) if index < len(source) else None) == 59:
         lex()
-        return 
+        return
     line = lineNumber
     skipComment()
     if lineNumber != line:
-        return 
+        return
     if match(";") not in [None, False]:
         lex()
-        return 
+        return
     if (lookahead.type != Token.EOF) and (not match("}")):
         throwUnexpected(lookahead)
 
@@ -2715,12 +2715,12 @@ def filterTokenLocation():
 class LocationMarker(object):
     def __init__(self=None):
         self.marker = [index, lineNumber, index - lineStart, 0, 0, 0]
-    
+
     def end(self=None):
         self.marker[3] = index
         self.marker[4] = lineNumber
         self.marker[5] = index - lineStart
-    
+
     def apply(self=None, node=None):
         if extra.range not in [None, False]:
             node.range = [self.marker[0], self.marker[3]]
@@ -2736,7 +2736,7 @@ class LocationMarker(object):
 }),
 })
         node = delegate.postProcess(node)
-    
+
 def createLocationMarker():
     if (not extra.loc) and (not extra.range):
         return None
@@ -2815,7 +2815,7 @@ def tokenize(code, **options):
                     extra.errors.append(lexError)
                     break
                 else:
-                    raise 
+                    raise
         filterTokenLocation()
         tokens = extra.tokens
         if ('undefined' if not ('comments' in extra) else typeof(extra.comments)) != "undefined":
@@ -2823,7 +2823,7 @@ def tokenize(code, **options):
         if ('undefined' if not ('errors' in extra) else typeof(extra.errors)) != "undefined":
             tokens.errors = extra.errors
     except Exception as e:
-        raise 
+        raise
     finally:
         unpatch()
         extra = jsdict({
@@ -2892,7 +2892,7 @@ def parse(code, **options):
         if ('undefined' if not ('errors' in extra) else typeof(extra.errors)) != "undefined":
             program.errors = extra.errors
     except Exception as e:
-        raise 
+        raise
     finally:
         unpatch()
         extra = jsdict({
