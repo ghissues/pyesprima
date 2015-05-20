@@ -1,3 +1,16 @@
+a port of int3/pyesprima to add python3 support and valid JSON output
+
+int3/pyesprima is quite old, ~2yr since last commit at time of fork 2015.05.17
+
+if this fork continues to provide needed functionality,
+i will attempt to update and keep uptodate with jquery/esprima,
+which was last updated ~23days ago at the time of this fork 2015.05.17
+
+
+
+
+here is the original forkd README.md ::
+
 PyEsprima
 =========
 
